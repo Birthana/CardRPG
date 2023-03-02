@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class CardDragger : MonoBehaviour
 {
-    private CardInformation selectedCard;
+    private Card selectedCard;
     private Vector3 returnPosition;
     private Line line;
     private Spawner spawner;
@@ -41,7 +42,7 @@ public class CardDragger : MonoBehaviour
     {
         if (Mouse.IsOnHandLayer())
         {
-            selectedCard = Mouse.GetHitObject().GetComponent<CardInformation>();
+            selectedCard = Mouse.GetHitObject().GetComponent<Card>();
             returnPosition = selectedCard.transform.position;
             line.SetStartPosition(returnPosition);
         }
@@ -55,8 +56,14 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
-        var selectedTarget = Mouse.GetHitObject().GetComponent<Enemy>();
-        CastSelectedCard(selectedTarget);
+        StartCoroutine(Casting());
+    }
+
+    IEnumerator Casting()
+    {
+        yield return StartCoroutine(selectedCard.Casting());
+        spawner.DestroySpawnedCard(selectedCard);
+        selectedCard = null;
     }
 
     private void MoveSelectedCard()
@@ -64,18 +71,6 @@ public class CardDragger : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         selectedCard.transform.position = mousePosition;
         line.SetEndPosition(mousePosition);
-    }
-
-    private void CastSelectedCard(Enemy selectedTarget)
-    {
-        selectedCard.Cast(selectedTarget);
-        AfterCastSelectedCard();
-    }
-
-    private void AfterCastSelectedCard()
-    {
-        spawner.DestroySpawnedCard(selectedCard);
-        selectedCard = null;
     }
 
     private void ReturnSelectedCard()

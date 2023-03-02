@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
         DisplayHand();
     }
 
-    public void DestroySpawnedCard(CardInformation selectedCard)
+    public void DestroySpawnedCard(Card selectedCard)
     {
         spawned.Remove(selectedCard.gameObject);
         Destroy(selectedCard.gameObject);

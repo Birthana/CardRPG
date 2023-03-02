@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 998644647059281087}
   - component: {fileID: 998644647059281086}
   - component: {fileID: 998644647059281085}
-  - component: {fileID: -2862056002706224209}
-  - component: {fileID: 1394890832090069544}
-  - component: {fileID: 931565806661006615}
+  - component: {fileID: 7719439802960248495}
+  - component: {fileID: 4097954466403439807}
+  - component: {fileID: -7317593621255138048}
   m_Layer: 7
   m_Name: Fireball
   m_TagString: Untagged
@@ -115,7 +115,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.4150624, y: 3.6802318}
   m_EdgeRadius: 0
---- !u!114 &-2862056002706224209
+--- !u!114 &7719439802960248495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,12 +124,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 998644647059281084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1959fece9d9ee4cb8458fab706aed2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0659980f764832b468e485275a8c9bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   element: 1
   weapon: 0
---- !u!114 &1394890832090069544
+  target: {fileID: 11400000, guid: c623008f59f5e1044b5ba36828b33737, type: 2}
+--- !u!114 &4097954466403439807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,8 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9613b69a8dc14442b9cabe8b912ca86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 11400000, guid: c623008f59f5e1044b5ba36828b33737, type: 2}
   damage: 5
---- !u!114 &931565806661006615
+--- !u!114 &-7317593621255138048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858cd486b5aba2545a31848c9893f972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 11400000, guid: c623008f59f5e1044b5ba36828b33737, type: 2}
   sameElementDamage: 5
   differentElementDamage: 2
 --- !u!1 &4356601219720601993

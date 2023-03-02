@@ -1,16 +1,16 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CardInformation))]
+[RequireComponent(typeof(Card))]
 [RequireComponent(typeof(DealDamage))]
 public class ApplyMarker : Effect
 {
     public int sameElementDamage;
     public int differentElementDamage;
-    private CardInformation.Element element;
+    private Card.Element element;
 
     private void Start()
     {
-        var info = GetComponent<CardInformation>();
+        var info = GetComponent<Card>();
         element = info.element;
     }
 
@@ -28,7 +28,7 @@ public class ApplyMarker : Effect
         if (MarkerIsSame(marker))
         {
             health.TakeDamage(sameElementDamage);
-            target.SetMarker(CardInformation.Element.None);
+            target.SetMarker(Card.Element.None);
             return;
         }
 
@@ -36,8 +36,8 @@ public class ApplyMarker : Effect
         target.SetMarker(element);
     }
 
-    private bool MarkerIsNone(CardInformation.Element marker) { return marker == CardInformation.Element.None; }
-    private bool MarkerIsSame(CardInformation.Element marker) { return marker == element; }
+    private bool MarkerIsNone(Card.Element marker) { return marker == Card.Element.None; }
+    private bool MarkerIsSame(Card.Element marker) { return marker == element; }
 
     public override string GetDescription()
     {
