@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5852035162633668628}
   - component: {fileID: 718364328042369891}
   - component: {fileID: -2031784206382504722}
+  - component: {fileID: 3604906830271757}
   m_Layer: 7
   m_Name: BasicWeapon
   m_TagString: Untagged
@@ -129,7 +130,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   element: 0
   weapon: 0
-  target: {fileID: 11400000, guid: c623008f59f5e1044b5ba36828b33737, type: 2}
 --- !u!114 &718364328042369891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9613b69a8dc14442b9cabe8b912ca86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 11400000, guid: c623008f59f5e1044b5ba36828b33737, type: 2}
+  target: {fileID: 3604906830271757}
   damage: 1
 --- !u!114 &-2031784206382504722
 MonoBehaviour:
@@ -156,8 +156,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10a3d4a13c8433438fe59bc8b066d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 11400000, guid: c623008f59f5e1044b5ba36828b33737, type: 2}
+  target: {fileID: 3604906830271757}
   cardToSpawn: {fileID: 998644647059281084}
+--- !u!114 &3604906830271757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998644647059281084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f674bd6bf12374086d0347ea47fa52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4356601219720601993
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class Target : ScriptableObject
+public abstract class Target : MonoBehaviour
 {
     public abstract GameObject GetTarget();
 

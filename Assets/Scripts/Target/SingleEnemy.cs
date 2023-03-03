@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SingleEnemy", menuName = "Target/SingleEnemy")]
 public class SingleEnemy : Target
 {
     private GameObject target;
@@ -10,7 +9,23 @@ public class SingleEnemy : Target
 
     public override IEnumerator Targeting()
     {
-        target = Mouse.GetHitObject();
-        yield return null;
+        var line = FindObjectOfType<Line>();
+        line.SetStartPosition(transform.position);
+        bool targeting = true;
+        while (targeting)
+        {
+            line.SetEndPosition(Mouse.GetPosition());
+            if (Mouse.PlayerReleasesLeftClick())
+            {
+                targeting = false;
+                if (Mouse.IsOnEnemyLayer())
+                {
+                    target = Mouse.GetHitObject();
+                }
+            }
+
+            yield return null;
+        }
+        line.ResetPosition();
     }
 }

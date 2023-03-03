@@ -4,13 +4,10 @@ using UnityEngine;
 public class CardDragger : MonoBehaviour
 {
     private Card selectedCard;
-    private Vector3 returnPosition;
-    private Line line;
     private Spawner spawner;
 
     private void Start()
     {
-        line = FindObjectOfType<Line>();
         spawner = FindObjectOfType<Spawner>();
     }
 
@@ -20,22 +17,6 @@ public class CardDragger : MonoBehaviour
         {
             PickUpCard();
         }
-
-        if (Mouse.PlayerReleasesLeftClick())
-        {
-            if (selectedCard == null)
-            {
-                return;
-            }
-
-            TryCastCard();
-            line.ResetPosition();
-        }
-
-        if (selectedCard != null)
-        {
-            MoveSelectedCard();
-        }
     }
 
     private void PickUpCard()
@@ -43,39 +24,23 @@ public class CardDragger : MonoBehaviour
         if (Mouse.IsOnHandLayer())
         {
             selectedCard = Mouse.GetHitObject().GetComponent<Card>();
-            returnPosition = selectedCard.transform.position;
-            line.SetStartPosition(returnPosition);
+            StartCoroutine(Targeting());
         }
     }
 
-    private void TryCastCard()
+    IEnumerator Targeting()
     {
-        if (!Mouse.IsOnEnemyLayer())
+        var targets = selectedCard.GetTargets();
+        foreach (SingleEnemy target in targets)
         {
-            ReturnSelectedCard();
-            return;
+            yield return StartCoroutine(target.Targeting());
+            if (target.GetTarget() == null)
+            {
+                yield break;
+            }
         }
-
-        StartCoroutine(Casting());
-    }
-
-    IEnumerator Casting()
-    {
-        yield return StartCoroutine(selectedCard.Casting());
+        selectedCard.Cast();
         spawner.DestroySpawnedCard(selectedCard);
-        selectedCard = null;
-    }
-
-    private void MoveSelectedCard()
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        selectedCard.transform.position = mousePosition;
-        line.SetEndPosition(mousePosition);
-    }
-
-    private void ReturnSelectedCard()
-    {
-        selectedCard.transform.position = returnPosition;
         selectedCard = null;
     }
 }

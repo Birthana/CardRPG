@@ -10,23 +10,22 @@ public class Card : MonoBehaviour
     public Element element;
     public Weapon weapon;
     private Effect[] effects;
-
-    private Line line;
+    private Target[] targets;
 
     private void Awake()
     {
         effects = GetComponents<Effect>();
-        line = FindObjectOfType<Line>();
+        targets = GetComponents<Target>();
     }
 
-    public IEnumerator Casting()
+    public Target[] GetTargets() { return targets; }
+
+    public void Cast()
     {
         foreach (var effect in effects)
         {
-            var target = effect.GetTarget();
-            yield return StartCoroutine(target.Targeting());
+            var target = effect.GetTarget() as SingleEnemy;
             effect.Cast(target.GetTarget().GetComponent<Enemy>());
-            line.ResetPosition();
         }
     }
 }
