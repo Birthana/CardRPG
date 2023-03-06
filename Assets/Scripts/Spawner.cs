@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public List<GameObject> cardToSpawn = new List<GameObject>();
+    public List<Card> cardToSpawn = new List<Card>();
     public List<int> numbersOfCardsToSpawn = new List<int>();
-    private List<GameObject> spawned = new List<GameObject>();
+    private List<Card> spawned = new List<Card>();
     private int CARD_SPACING = 10;
 
     void Start()
@@ -24,16 +24,16 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void Spawn(GameObject cardToSpawn)
+    public void Spawn(Card cardToSpawn)
     {
-        GameObject newCard = Instantiate(cardToSpawn, transform);
+        Card newCard = Instantiate(cardToSpawn, transform);
         spawned.Add(newCard);
         DisplayHand();
     }
 
     public void DestroySpawnedCard(Card selectedCard)
     {
-        spawned.Remove(selectedCard.gameObject);
+        spawned.Remove(selectedCard);
         Destroy(selectedCard.gameObject);
         DisplayHand();
     }

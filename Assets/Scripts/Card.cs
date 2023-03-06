@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
+public enum Element { None, Fire, Water, Earth, Wind, Lightning, Void }
+public enum Weapon { Sword, Hammer, Pickaxe, Arrow, Dagger, Shield, Bag, None }
+
 public class Card : MonoBehaviour
 {
-    public enum Element { None, Fire, Water, Earth, Wind, Lightning, Void }
-
-    public enum Weapon { Sword, Hammer, Pickaxe, Arrow, Dagger, Shield, Bag, None }
-
     public Element element;
     public Weapon weapon;
     private Effect[] effects;
@@ -24,8 +23,12 @@ public class Card : MonoBehaviour
     {
         foreach (var effect in effects)
         {
-            var target = effect.GetTarget() as SingleEnemy;
-            effect.Cast(target.GetTarget().GetComponent<Enemy>());
+            var target = effect.GetTarget();
+            var targets = target.GetTarget();
+            foreach (var selectedTarget in targets)
+            {
+                effect.Cast(selectedTarget.GetComponent<Enemy>());
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AddCardToHand : Effect
 {
-    public GameObject cardToSpawn;
+    public Card cardToSpawn;
 
     public override void Cast(Enemy target)
     {

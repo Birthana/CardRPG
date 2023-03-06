@@ -31,7 +31,7 @@ public class CardDragger : MonoBehaviour
     IEnumerator Targeting()
     {
         var targets = selectedCard.GetTargets();
-        foreach (SingleEnemy target in targets)
+        foreach (Target target in targets)
         {
             yield return StartCoroutine(target.Targeting());
             if (target.GetTarget() == null)
@@ -39,6 +39,11 @@ public class CardDragger : MonoBehaviour
                 yield break;
             }
         }
+        CastSelectedCard();
+    }
+
+    private void CastSelectedCard()
+    {
         selectedCard.Cast();
         spawner.DestroySpawnedCard(selectedCard);
         selectedCard = null;

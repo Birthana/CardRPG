@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Card.Element marker;
+    [SerializeField] private Element marker;
 
-    public Card.Element GetMarker() { return marker; }
-    public void SetMarker(Card.Element mark) { marker = mark; }
+    public Element GetMarker() { return marker; }
+    public void SetMarker(Element mark) { marker = mark; }
 
 
 }

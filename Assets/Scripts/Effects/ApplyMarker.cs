@@ -6,7 +6,7 @@ public class ApplyMarker : Effect
 {
     public int sameElementDamage;
     public int differentElementDamage;
-    private Card.Element element;
+    private Element element;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class ApplyMarker : Effect
         if (MarkerIsSame(marker))
         {
             health.TakeDamage(sameElementDamage);
-            target.SetMarker(Card.Element.None);
+            target.SetMarker(Element.None);
             return;
         }
 
@@ -36,8 +36,8 @@ public class ApplyMarker : Effect
         target.SetMarker(element);
     }
 
-    private bool MarkerIsNone(Card.Element marker) { return marker == Card.Element.None; }
-    private bool MarkerIsSame(Card.Element marker) { return marker == element; }
+    private bool MarkerIsNone(Element marker) { return marker == Element.None; }
+    private bool MarkerIsSame(Element marker) { return marker == element; }
 
     public override string GetDescription()
     {

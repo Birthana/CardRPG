@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 3604906830271757}
-  cardToSpawn: {fileID: 998644647059281084}
+  cardToSpawn: {fileID: 5852035162633668628}
 --- !u!114 &3604906830271757
 MonoBehaviour:
   m_ObjectHideFlags: 0

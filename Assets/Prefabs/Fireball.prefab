@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7719439802960248495}
   - component: {fileID: 4097954466403439807}
   - component: {fileID: -7317593621255138048}
-  - component: {fileID: 7751194507087146875}
-  - component: {fileID: -5898171689635404336}
+  - component: {fileID: 5465682997931917875}
+  - component: {fileID: -3343406818354192607}
   m_Layer: 7
   m_Name: Fireball
   m_TagString: Untagged
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9613b69a8dc14442b9cabe8b912ca86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 7751194507087146875}
+  target: {fileID: 5465682997931917875}
   damage: 5
 --- !u!114 &-7317593621255138048
 MonoBehaviour:
@@ -157,10 +157,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858cd486b5aba2545a31848c9893f972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: -5898171689635404336}
+  target: {fileID: -3343406818354192607}
   sameElementDamage: 5
   differentElementDamage: 2
---- !u!114 &7751194507087146875
+--- !u!114 &5465682997931917875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,10 +169,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 998644647059281084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2f674bd6bf12374086d0347ea47fa52, type: 3}
+  m_Script: {fileID: 11500000, guid: a38fe55211fb271429308ffeafff2fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5898171689635404336
+--- !u!114 &-3343406818354192607
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 998644647059281084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2f674bd6bf12374086d0347ea47fa52, type: 3}
+  m_Script: {fileID: 11500000, guid: a38fe55211fb271429308ffeafff2fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4356601219720601993

@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class SingleEnemy : Target
 {
-    private GameObject target;
+    private GameObject[] targets;
+    private Line line;
 
-    public override GameObject GetTarget() { return target; }
+    public override GameObject[] GetTarget() { return targets; }
 
     public override IEnumerator Targeting()
     {
-        var line = FindObjectOfType<Line>();
+        line = FindObjectOfType<Line>();
         line.SetStartPosition(transform.position);
+        yield return StartCoroutine(Selecting());
+        line.ResetPosition();
+    }
+
+    IEnumerator Selecting()
+    {
         bool targeting = true;
         while (targeting)
         {
@@ -18,14 +25,20 @@ public class SingleEnemy : Target
             if (Mouse.PlayerReleasesLeftClick())
             {
                 targeting = false;
-                if (Mouse.IsOnEnemyLayer())
-                {
-                    target = Mouse.GetHitObject();
-                }
+                targets = GetSelectedTarget();
             }
 
             yield return null;
         }
-        line.ResetPosition();
+    }
+
+    private GameObject[] GetSelectedTarget()
+    {
+        if (Mouse.IsOnEnemyLayer())
+        {
+            return new GameObject[]{ Mouse.GetHitObject() };
+        }
+
+        return null;
     }
 }
