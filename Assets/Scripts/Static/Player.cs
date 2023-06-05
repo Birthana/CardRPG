@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 
     public static Weapon FindWeapon() { return FindObjectOfType<Weapon>(); }
 
-    public static Character FindEnergy() { return FindObjectOfType<Character>(); }
+    public static Character FindCharacter() { return FindObjectOfType<Character>(); }
 
     public static Field FindField() { return FindObjectOfType<Field>(); }
 

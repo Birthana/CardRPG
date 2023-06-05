@@ -8,9 +8,10 @@ public class ReturnWeapon : Effect
     {
         var weapon = Player.FindWeapon();
         var spawner = Player.FindSpawner();
-        var card = spawner.SpawnCard(weapon.GetWeapon().GetCardInfo());
+        var card = spawner.SpawnWeaponCard(weapon.GetWeapon().GetCardInfo());
         card.transform.position = weapon.transform.position;
         card.transform.SetParent(weapon.transform);
+        card.Tap();
         weapon.SetWeapon(card);
     }
 

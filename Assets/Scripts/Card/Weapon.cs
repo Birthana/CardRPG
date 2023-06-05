@@ -3,7 +3,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public CardInfo weaponInfo;
-    [SerializeField] private Card weapon;
+    [SerializeField] private WeaponCard weapon;
 
     // Start is called before the first frame update
     void Start()
@@ -11,6 +11,6 @@ public class Weapon : MonoBehaviour
         weapon.SetCardInfo(weaponInfo);
     }
 
-    public Card GetWeapon() { return weapon; }
-    public void SetWeapon(Card newWeapon) { weapon = newWeapon; }
+    public WeaponCard GetWeapon() { return weapon; }
+    public void SetWeapon(WeaponCard newWeapon) { weapon = newWeapon; }
 }

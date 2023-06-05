@@ -7,22 +7,11 @@ public enum Element { Weapon, Fire, Water, Earth, Wind, Lightning, Void }
 
 public class Card : MonoBehaviour
 {
-    private CardInfo cardInfo;
-    private TextMeshPro description;
+    protected CardInfo cardInfo;
+    protected TextMeshPro description;
+    protected bool isTapped;
 
-    public void IncreaseDamage(int damage)
-    {
-        foreach (var effect in cardInfo.effects)
-        {
-            if(effect is DealDamage)
-            {
-                var dealDamage = effect as DealDamage;
-                dealDamage.damage += damage;
-                SetText();
-                return;
-            }
-        }
-    }
+    public bool IsTapped() { return isTapped; }
 
     public CardInfo GetCardInfo()
     {
@@ -55,11 +44,7 @@ public class Card : MonoBehaviour
         }
     }
 
-    public Element GetElement() { return cardInfo.element; }
-
     public int GetActionCost() { return cardInfo.actionCost; }
-
-    public string GetCardName() { return cardInfo.GetCardName(); }
 
     public void Cast()
     {
@@ -69,12 +54,10 @@ public class Card : MonoBehaviour
         }
     }
 
-    public bool IsWeapon() { return cardInfo.element == Element.Weapon; }
-
     public IEnumerator Targeting(Action castFunction)
     {
-        var cardTargetTypes = GetComponent<CardTargetType>();
-        var targetType = cardInfo.targetType;
-        yield return StartCoroutine(cardTargetTypes.RunTargetingAs(targetType, GetTargetsFromEffects(), castFunction));
+        var targetTypeObject = Instantiate(cardInfo.cardTargetType);
+        yield return StartCoroutine(targetTypeObject.RunTargetingAs(GetTargetsFromEffects(), castFunction));
+        Destroy(targetTypeObject.gameObject);
     }
 }

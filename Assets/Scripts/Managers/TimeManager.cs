@@ -11,7 +11,7 @@ public class TimeManager : MonoBehaviour
     void Start()
     {
         OnTimeChange += GetComponent<BasicUI>().Display;
-        var character = Player.FindEnergy();
+        var character = Player.FindCharacter();
         maxTime = character.GetTime();
         currentTime = maxTime;
         OnTimeChange?.Invoke(currentTime);

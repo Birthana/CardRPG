@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
     {
         hand = FindObjectOfType<Hand>();
         var health = GetComponent<Health>();
-        health.OnWeaponHit += DropLoot;
+        //health.OnWeaponHit += DropLoot;
 
         SetUpRanges();
     }

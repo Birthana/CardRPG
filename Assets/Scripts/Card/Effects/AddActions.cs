@@ -12,7 +12,7 @@ public class AddActions : Effect
 
     public override void Cast()
     {
-        var character = Player.FindEnergy();
+        var character = Player.FindCharacter();
         character.AddTempActions(actions);
     }
 

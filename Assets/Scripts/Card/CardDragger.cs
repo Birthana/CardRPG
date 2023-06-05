@@ -33,7 +33,7 @@ public class CardDragger : MonoBehaviour
         if (Mouse.IsOnHandLayer())
         {
             selectedCard = Mouse.GetHitObject().GetComponent<Card>();
-            if (character.HasActions(selectedCard.GetActionCost()))
+            if (character.HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped())
             {
                 StartCoroutine(selectedCard.Targeting(CastSelectedCard));
             }

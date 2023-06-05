@@ -28,17 +28,13 @@ public class TurnManager : MonoBehaviour
 
     public void AddToTurnOrder(GameObject newCharacter) { characters.Enqueue(newCharacter); }
 
-    public void Reorder()
-    {
-
-    }
-
     public void EndTurn()
     {
         if(currentTurnCharacter != null)
         {
             characters.Enqueue(currentTurnCharacter);
         }
+
         currentTurnCharacter = characters.Dequeue();
     }
 
