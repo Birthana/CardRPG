@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public List<GameObject> charactersInEditor = new List<GameObject>();
-    private Queue<GameObject> characters = new Queue<GameObject>();
-    [SerializeField] private GameObject currentTurnCharacter;
+    public List<TakeTurn> characters = new List<TakeTurn>();
+    [SerializeField] private TakeTurn currentTurnCharacter;
 
     public bool IsPlayerTurn() { return currentTurnCharacter.GetComponent<Character>() != null; }
 
     private void Start()
     {
-        AddCharactersInEditorToQueue();
         EndTurn();
     }
 
-    private void AddCharactersInEditorToQueue()
+    public TakeTurn GetCurrentTurnCharacter() { return currentTurnCharacter; }
+
+    public void AddToTurnOrder(TakeTurn newCharacter) { characters.Add(newCharacter); }
+
+    public void RemoveFromTurnOrder(TakeTurn characterToRemove) { characters.Remove(characterToRemove); }
+
+    public TakeTurn GetNextCharacter()
     {
-        foreach (var character in charactersInEditor)
-        {
-            characters.Enqueue(character);
-        }
+        var nextCharacter = characters[0];
+        characters.RemoveAt(0);
+        return nextCharacter;
     }
-
-    public GameObject GetCurrentTurnCharacter() { return currentTurnCharacter; }
-
-    public void AddToTurnOrder(GameObject newCharacter) { characters.Enqueue(newCharacter); }
 
     public void EndTurn()
     {
         if(currentTurnCharacter != null)
         {
-            characters.Enqueue(currentTurnCharacter);
+            AddToTurnOrder(currentTurnCharacter);
         }
 
-        currentTurnCharacter = characters.Dequeue();
+        currentTurnCharacter = GetNextCharacter();
+        currentTurnCharacter.PerformStartOfTurnActions();
     }
 
 

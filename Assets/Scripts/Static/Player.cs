@@ -13,4 +13,6 @@ public class Player : MonoBehaviour
     public static TimeManager FindTimeManager() { return FindObjectOfType<TimeManager>(); }
 
     public static Spawner FindSpawner() { return FindObjectOfType<Spawner>(); }
+
+    public static Health FindHealth() { return FindCharacter().GetComponentInChildren<Health>(); }
 }

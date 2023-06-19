@@ -13,4 +13,10 @@ public class Weapon : MonoBehaviour
 
     public WeaponCard GetWeapon() { return weapon; }
     public void SetWeapon(WeaponCard newWeapon) { weapon = newWeapon; }
+
+    public void UnTap()
+    {
+        var weapon = GetWeapon();
+        weapon.UnTap();
+    }
 }

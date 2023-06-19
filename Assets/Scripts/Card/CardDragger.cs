@@ -6,38 +6,24 @@ public class CardDragger : MonoBehaviour
     private Card selectedCard;
     private Hand hand;
     private Character character;
-    private TurnManager turnManager;
 
     private void Start()
     {
         hand = FindObjectOfType<Hand>();
         character = FindObjectOfType<Character>();
-        turnManager = FindObjectOfType<TurnManager>();
     }
 
-    private void Update()
+    private bool CharacterCanCastCard() { return character.HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped(); }
+
+    public IEnumerator PickUpCard()
     {
-        if (!turnManager.IsPlayerTurn())
+        selectedCard = Mouse.GetHitComponent<Card>();
+        if (CharacterCanCastCard())
         {
-            return;
+            yield return StartCoroutine(selectedCard.Targeting(CastSelectedCard));
         }
 
-        if (Mouse.PlayerPressesLeftClick())
-        {
-            PickUpCard();
-        }
-    }
-
-    private void PickUpCard()
-    {
-        if (Mouse.IsOnHandLayer())
-        {
-            selectedCard = Mouse.GetHitObject().GetComponent<Card>();
-            if (character.HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped())
-            {
-                StartCoroutine(selectedCard.Targeting(CastSelectedCard));
-            }
-        }
+        yield return null;
     }
 
     private void CastSelectedCard()

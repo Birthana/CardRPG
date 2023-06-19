@@ -15,12 +15,12 @@ public class Deck : MonoBehaviour
     private Queue<CardInfo> deck = new Queue<CardInfo>();
     private Hand hand;
 
-    private void Start()
+    private void Awake()
     {
         hand = FindObjectOfType<Hand>();
         FillDeckWithCards();
         Shuffle();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 1; i++)
         {
             Draw();
         }
@@ -37,8 +37,18 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void DrawToHand()
+    {
+        Draw();
+    }
+
     public CardInfo Draw()
     {
+        if(deck.Count == 0)
+        {
+            return null;
+        }
+
         var card = deck.Dequeue();
         hand.Add(card);
         return card;

@@ -5,6 +5,7 @@ using TMPro;
 public class Health : MonoBehaviour
 {
     public event Action OnWeaponHit;
+    public event Action OnDeath;
     public TextMeshPro healthDisplay;
     public int maxHealth;
     private int currentHealth;
@@ -16,6 +17,8 @@ public class Health : MonoBehaviour
         healthDisplay.text = $"{currentHealth}";
     }
 
+    public bool IsDead() { return currentHealth == 0; }
+
     public void TakeDamage(int damage, Element element)
     {
         currentHealth = Mathf.Max(0, currentHealth - damage);
@@ -23,6 +26,11 @@ public class Health : MonoBehaviour
         if (element == Element.Weapon)
         {
             OnWeaponHit?.Invoke();
+        }
+
+        if (IsDead())
+        {
+            OnDeath?.Invoke();
         }
     }
 }

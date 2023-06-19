@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [Serializable]
@@ -11,17 +12,38 @@ public struct CharacterStats
 }
 
 [RequireComponent(typeof(BasicUI))]
-public class Character : MonoBehaviour
+[RequireComponent(typeof(Deck))]
+public class Character : TakeTurn
 {
     public Action<int> OnActionChange;
+    public Action OnStartOfTurn;
     [SerializeField] private CharacterStats stats;
     [SerializeField] private int maxActions;
     private int currentActions;
+    private Coroutine currentAction;
+
+    private void Awake()
+    {
+        SetActionChangeCallbacks();
+        SetStartOfTurnCallbacks();
+    }
 
     private void Start()
     {
-        OnActionChange += GetComponent<BasicUI>().Display;
         SetCurrentActions(maxActions);
+    }
+
+    private void SetActionChangeCallbacks()
+    {
+        OnActionChange += GetComponent<BasicUI>().Display;
+    }
+
+    private void SetStartOfTurnCallbacks()
+    {
+        OnStartOfTurn += ResetActions;
+        OnStartOfTurn += GetComponent<Deck>().DrawToHand;
+        var weapon = FindObjectOfType<Weapon>();
+        OnStartOfTurn += weapon.UnTap;
     }
 
     public int GetTime() { return stats.time; }
@@ -46,11 +68,38 @@ public class Character : MonoBehaviour
         SetCurrentActions(actions);
     }
 
-    public void ResetActions() { currentActions = maxActions; }
+    public void ResetActions() { SetCurrentActions(maxActions); }
 
     private void SetCurrentActions(int actionAmount)
     {
         currentActions = actionAmount;
         OnActionChange?.Invoke(currentActions);
+    }
+
+    public override void PerformStartOfTurnActions()
+    {
+        Debug.Log($"Your Turn.");
+        OnStartOfTurn?.Invoke();
+        if (currentAction != null)
+        {
+            StopCoroutine(currentAction);
+        }
+
+        currentAction = StartCoroutine(CanDoActions());
+    }
+
+    public IEnumerator CanDoActions()
+    {
+        var turnManager = FindObjectOfType<TurnManager>();
+        var cardDragger = GetComponentInChildren<CardDragger>();
+        while (turnManager.IsPlayerTurn())
+        {
+            if (Mouse.PlayerPressesLeftClick() && Mouse.IsOnHandLayer())
+            {
+                yield return StartCoroutine(cardDragger.PickUpCard());
+            }
+
+            yield return null;
+        }
     }
 }

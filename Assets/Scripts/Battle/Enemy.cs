@@ -22,16 +22,22 @@ public struct RandomCard
 }
 
 [RequireComponent(typeof(Health))]
-public class Enemy : MonoBehaviour
+public class Enemy : TakeTurn
 {
     public List<Loot> lootTable;
     private Hand hand;
     private List<RandomCard> rngLoot = new List<RandomCard>();
 
+    public void Awake()
+    {
+        var health = GetComponent<Health>();
+        health.OnDeath += Die;
+    }
+
     public void Start()
     {
         hand = FindObjectOfType<Hand>();
-        var health = GetComponent<Health>();
+        //var health = GetComponent<Health>();
         //health.OnWeaponHit += DropLoot;
 
         SetUpRanges();
@@ -73,5 +79,21 @@ public class Enemy : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void Die()
+    {
+        var turnManager = FindObjectOfType<TurnManager>();
+        turnManager.RemoveFromTurnOrder(this);
+        Destroy(gameObject);
+    }
+
+    public override void PerformStartOfTurnActions()
+    {
+        Debug.Log($"Enemy Turn.");
+        var health = Player.FindHealth();
+        health.TakeDamage(1, Element.Water);
+        var turnManager = FindObjectOfType<TurnManager>();
+        turnManager.EndTurn();
     }
 }
