@@ -5,35 +5,27 @@ public class Hover : MonoBehaviour
     public float HOVERED_Z_POSITION;
     private Card hovered;
     private Vector3 previousPosition;
-    private CardDragger dragger;
-
-    private void Start()
-    {
-        dragger = FindObjectOfType<CardDragger>();
-    }
-
-    private void Update()
-    {
-        // TODO: Don't hover while dragging.
-        if (Mouse.IsOnHandLayer())
-        {
-            RiseCard();
-        }
-    }
 
     public void ResetHoveredCard()
     {
+        if (hovered == null)
+        {
+            return;
+        }
+
         SetPosition(hovered, previousPosition);
         SetHoveredCard(null);
     }
 
-    private void RiseCard()
+    public void RaiseCard()
     {
-        if(hovered != null)
-        {
-            ResetHoveredCard();
-        }
         var card = Mouse.GetHitComponent<Card>();
+        if (hovered == card)
+        {
+            return;
+        }
+
+        ResetHoveredCard();
         SetHoveredCard(card);
         var position = card.gameObject.transform.position;
         SetPosition(hovered, new Vector3(position.x, position.y, HOVERED_Z_POSITION));

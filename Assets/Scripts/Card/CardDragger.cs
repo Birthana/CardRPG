@@ -13,7 +13,7 @@ public class CardDragger : MonoBehaviour
         character = FindObjectOfType<Character>();
     }
 
-    private bool CharacterCanCastCard() { return character.HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped(); }
+    private bool CharacterCanCastCard() { return character.GetEnergy().HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped(); }
 
     public IEnumerator PickUpCard()
     {
@@ -28,7 +28,7 @@ public class CardDragger : MonoBehaviour
 
     private void CastSelectedCard()
     {
-        character.UseActions(selectedCard.GetActionCost());
+        character.GetEnergy().UseActions(selectedCard.GetActionCost());
         selectedCard.Cast();
         hand.Remove(selectedCard);
         SubtractFromTime();
