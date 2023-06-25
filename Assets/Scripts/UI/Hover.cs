@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Hover : MonoBehaviour
+public class Hover
 {
-    public float HOVERED_Z_POSITION;
+    private float HOVERED_Z_POSITION = 0.0f;
     private Card hovered;
     private Vector3 previousPosition;
 

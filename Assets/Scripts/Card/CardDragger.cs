@@ -1,35 +1,23 @@
-using System.Collections;
-using UnityEngine;
-
-public class CardDragger : MonoBehaviour
+public class CardDragger
 {
     private Card selectedCard;
-    private Hand hand;
-    private Character character;
 
-    private void Start()
+    public Card Get() { return selectedCard; }
+
+    public bool CharacterCanCastCard() 
     {
-        hand = FindObjectOfType<Hand>();
-        character = FindObjectOfType<Character>();
+        var character = Player.FindCharacter();
+        return character.GetEnergy().HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped();
     }
 
-    private bool CharacterCanCastCard() { return character.GetEnergy().HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped(); }
+    public void PickUpCard() { selectedCard = Mouse.GetHitComponent<Card>(); }
 
-    public IEnumerator PickUpCard()
+    public void CastSelectedCard()
     {
-        selectedCard = Mouse.GetHitComponent<Card>();
-        if (CharacterCanCastCard())
-        {
-            yield return StartCoroutine(selectedCard.Targeting(CastSelectedCard));
-        }
-
-        yield return null;
-    }
-
-    private void CastSelectedCard()
-    {
+        var character = Player.FindCharacter();
         character.GetEnergy().UseActions(selectedCard.GetActionCost());
         selectedCard.Cast();
+        var hand = Player.FindHand();
         hand.Remove(selectedCard);
         SubtractFromTime();
         selectedCard = null;

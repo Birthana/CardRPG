@@ -18,6 +18,8 @@ public class Character : TakeTurn
     [SerializeField] private CharacterStats stats;
     private Coroutine currentAction;
     private Energy energy;
+    private Hover hover;
+    private CardDragger cardDragger;
 
     private void Awake()
     {
@@ -27,8 +29,9 @@ public class Character : TakeTurn
 
     private void SetStartOfTurnCallbacks()
     {
-        var hover = GetComponentInChildren<Hover>();
+        hover = new Hover();
         OnStartOfTurn += hover.ResetHoveredCard;
+        cardDragger = new CardDragger();
         OnStartOfTurn += energy.ResetActions;
         OnStartOfTurn += GetComponent<Deck>().DrawToHand;
         var weapon = FindObjectOfType<Weapon>();
@@ -68,13 +71,16 @@ public class Character : TakeTurn
         {
             if (CharacterIsCastingHandCard())
             {
-                var cardDragger = GetComponentInChildren<CardDragger>();
-                yield return StartCoroutine(cardDragger.PickUpCard());
+                cardDragger.PickUpCard();
+                if (cardDragger.CharacterCanCastCard())
+                {
+                    var selectedCard = cardDragger.Get();
+                    yield return StartCoroutine(selectedCard.Targeting(cardDragger.CastSelectedCard));
+                }
             }
 
             if(Mouse.IsOnHandLayer())
             {
-                var hover = GetComponentInChildren<Hover>();
                 hover.RaiseCard();
             }
 
