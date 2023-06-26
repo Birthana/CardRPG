@@ -23,8 +23,8 @@ public class Character : TakeTurn
 
     private void Awake()
     {
-        cardDragger = new CardDragger(this, GetComponent<Hand>());
         SetStartOfTurnCallbacks();
+        cardDragger = new CardDragger(GetComponent<Hand>(), energy);
     }
 
     private void SetStartOfTurnCallbacks()

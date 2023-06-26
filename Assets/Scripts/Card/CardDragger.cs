@@ -1,27 +1,27 @@
 public class CardDragger
 {
     private Card selectedCard;
-    private readonly Character character;
     private readonly Hand hand;
+    private readonly Energy energy;
 
-    public CardDragger(Character character, Hand hand)
+    public CardDragger(Hand hand, Energy energy)
     {
-        this.character = character;
         this.hand = hand;
+        this.energy = energy;
     }
 
     public Card Get() { return selectedCard; }
 
     public bool CharacterCanCastCard() 
     {
-        return character.GetEnergy().HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped();
+        return energy.HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped();
     }
 
     public void PickUpCard() { selectedCard = Mouse.GetHitComponent<Card>(); }
 
     public void CastSelectedCard()
     {
-        character.GetEnergy().UseActions(selectedCard.GetActionCost());
+        energy.UseActions(selectedCard.GetActionCost());
         selectedCard.Cast();
         hand.Remove(selectedCard);
         SubtractFromTime();

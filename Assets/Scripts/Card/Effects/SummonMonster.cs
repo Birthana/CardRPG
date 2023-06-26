@@ -24,6 +24,6 @@ public class SummonMonster : Effect
 
     public override string GetDescription()
     {
-        return $"";
+        return $"Summon {monsterPrefab.name} on the field.";
     }
 }
