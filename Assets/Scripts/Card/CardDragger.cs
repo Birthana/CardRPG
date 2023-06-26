@@ -1,12 +1,19 @@
 public class CardDragger
 {
     private Card selectedCard;
+    private readonly Character character;
+    private readonly Hand hand;
+
+    public CardDragger(Character character, Hand hand)
+    {
+        this.character = character;
+        this.hand = hand;
+    }
 
     public Card Get() { return selectedCard; }
 
     public bool CharacterCanCastCard() 
     {
-        var character = Player.FindCharacter();
         return character.GetEnergy().HasActions(selectedCard.GetActionCost()) && !selectedCard.IsTapped();
     }
 
@@ -14,10 +21,8 @@ public class CardDragger
 
     public void CastSelectedCard()
     {
-        var character = Player.FindCharacter();
         character.GetEnergy().UseActions(selectedCard.GetActionCost());
         selectedCard.Cast();
-        var hand = Player.FindHand();
         hand.Remove(selectedCard);
         SubtractFromTime();
         selectedCard = null;

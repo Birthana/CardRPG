@@ -6,6 +6,7 @@ public class Hand : MonoBehaviour
     public Card cardPrefab;
     private List<Card> cards = new List<Card>();
     private int CARD_SPACING = 10;
+    private float Y_CARD_POSITION = -3.5f;
 
     public void Add(CardInfo cardToSpawn)
     {
@@ -45,7 +46,7 @@ public class Hand : MonoBehaviour
 
     float CalcX(float positionOffset) { return Mathf.Sin(positionOffset * Mathf.Deg2Rad) * CARD_SPACING * 10; }
 
-    float CalcY() { return 0; }
+    float CalcY() { return Y_CARD_POSITION; }
 
     float CalcZ(int index) { return cards.Count - index; }
 }

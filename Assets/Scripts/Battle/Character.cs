@@ -23,25 +23,35 @@ public class Character : TakeTurn
 
     private void Awake()
     {
-        energy = GetComponentInChildren<Energy>();
+        cardDragger = new CardDragger(this, GetComponent<Hand>());
         SetStartOfTurnCallbacks();
     }
 
     private void SetStartOfTurnCallbacks()
     {
-        hover = new Hover();
-        OnStartOfTurn += hover.ResetHoveredCard;
-        cardDragger = new CardDragger();
-        OnStartOfTurn += energy.ResetActions;
-        OnStartOfTurn += GetComponent<Deck>().DrawToHand;
-        var weapon = FindObjectOfType<Weapon>();
-        OnStartOfTurn += weapon.UnTap;
+        SetHoverCallbacks();
+        SetEnergyCallbacks();
+        SetWeaponCallbacks();
+        SetDeckCallbacks();
     }
 
-    public Energy GetEnergy()
+    private void SetHoverCallbacks()
     {
-        return energy;
+        hover = new Hover();
+        OnStartOfTurn += hover.ResetHoveredCard;
     }
+
+    private void SetEnergyCallbacks()
+    {
+        energy = GetComponentInChildren<Energy>();
+        OnStartOfTurn += energy.ResetActions;
+    }
+
+    private void SetWeaponCallbacks() { OnStartOfTurn += FindObjectOfType<Weapon>().UnTap; }
+
+    private void SetDeckCallbacks() { OnStartOfTurn += GetComponent<Deck>().DrawToHand; }
+
+    public Energy GetEnergy() { return energy; }
 
     public int GetTime() { return stats.time; }
 
@@ -71,12 +81,7 @@ public class Character : TakeTurn
         {
             if (CharacterIsCastingHandCard())
             {
-                cardDragger.PickUpCard();
-                if (cardDragger.CharacterCanCastCard())
-                {
-                    var selectedCard = cardDragger.Get();
-                    yield return StartCoroutine(selectedCard.Targeting(cardDragger.CastSelectedCard));
-                }
+                yield return StartCoroutine(CastCard());
             }
 
             if(Mouse.IsOnHandLayer())
@@ -85,6 +90,16 @@ public class Character : TakeTurn
             }
 
             yield return null;
+        }
+    }
+
+    private IEnumerator CastCard()
+    {
+        cardDragger.PickUpCard();
+        if (cardDragger.CharacterCanCastCard())
+        {
+            var selectedCard = cardDragger.Get();
+            yield return StartCoroutine(selectedCard.Targeting(cardDragger.CastSelectedCard));
         }
     }
 }
