@@ -19,7 +19,7 @@ public class SummonMonster : Effect
     public override void Cast()
     {
         var field = Player.FindField();
-        field.Add(monsterPrefab);
+        field.Add(monsterPrefab, stats);
     }
 
     public override string GetDescription()
