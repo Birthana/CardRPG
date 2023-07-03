@@ -10,7 +10,7 @@ public struct MonsterStats
 public class SummonMonster : Effect
 {
     public MonsterStats stats;
-    public GameObject monsterPrefab;
+    public FieldCard monsterPrefab;
 
     public SummonMonster() : base(new NoTarget()) { }
 

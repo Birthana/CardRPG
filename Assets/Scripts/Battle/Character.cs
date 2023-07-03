@@ -14,7 +14,7 @@ public struct CharacterStats
 [RequireComponent(typeof(Deck))]
 public class Character : TakeTurn
 {
-    public Action OnStartOfTurn;
+    private Action OnStartOfTurn;
     [SerializeField] private CharacterStats stats;
     private Coroutine currentAction;
     private Energy energy;
@@ -50,6 +50,8 @@ public class Character : TakeTurn
     private void SetWeaponCallbacks() { OnStartOfTurn += FindObjectOfType<Weapon>().UnTap; }
 
     private void SetDeckCallbacks() { OnStartOfTurn += GetComponent<Deck>().DrawToHand; }
+
+    public void SetStartOfTurnEffect(Action effect) { OnStartOfTurn += effect; }
 
     public Energy GetEnergy() { return energy; }
 

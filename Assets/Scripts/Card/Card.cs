@@ -7,8 +7,8 @@ public enum Element { Weapon, Fire, Water, Earth, Wind, Lightning, Void }
 
 public class Card : MonoBehaviour
 {
+    public TextMeshPro description;
     protected CardInfo cardInfo;
-    protected TextMeshPro description;
     protected bool isTapped;
 
     public bool IsTapped() { return isTapped; }
@@ -21,7 +21,6 @@ public class Card : MonoBehaviour
     public void SetCardInfo(CardInfo newCardInfo)
     {
         cardInfo = Instantiate(newCardInfo);
-        description = GetComponentInChildren<TextMeshPro>();
         SetText();
     }
 

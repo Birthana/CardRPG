@@ -8,7 +8,6 @@ public class Effect
 
     public Effect()
     {
-
     }
 
     public Effect(Target target) 

@@ -19,6 +19,7 @@ public class CardInfo : ScriptableObject
     [ContextMenu(nameof(IncreaseWeaponDamage))] void IncreaseWeaponDamage() { effects.Add(new IncreaseWeaponDamage()); }
     [ContextMenu(nameof(UntapWeapon))] void UntapWeapon() { effects.Add(new UntapWeapon()); }
     [ContextMenu(nameof(TriggerCheck))] void TriggerCheck() { effects.Add(new TriggerCheck()); }
+    [ContextMenu(nameof(FieldCardAttack))] void FieldCardAttack() { effects.Add(new FieldCardAttack(new AttackEnemy())); }
 
     public string GetCardName() { return cardName; }
 }

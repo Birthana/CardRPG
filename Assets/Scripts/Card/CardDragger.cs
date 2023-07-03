@@ -23,7 +23,10 @@ public class CardDragger
     {
         energy.UseActions(selectedCard.GetActionCost());
         selectedCard.Cast();
-        hand.Remove(selectedCard);
+        if(selectedCard is not FieldCard)
+        {
+            hand.Remove(selectedCard);
+        }
         SubtractFromTime();
         selectedCard = null;
     }
