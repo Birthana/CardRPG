@@ -30,8 +30,7 @@ public class Enemy : TakeTurn
 
     public void Awake()
     {
-        var health = GetComponent<Health>();
-        health.OnDeath += Die;
+        GetComponent<Health>().OnDeath += Die;
     }
 
     public void Start()
@@ -83,17 +82,26 @@ public class Enemy : TakeTurn
 
     public void Die()
     {
-        var turnManager = FindObjectOfType<TurnManager>();
-        turnManager.RemoveFromTurnOrder(this);
+        FindObjectOfType<TurnManager>().RemoveFromTurnOrder(this);
         Destroy(gameObject);
     }
 
     public override void PerformStartOfTurnActions()
     {
         Debug.Log($"Enemy Turn.");
-        var health = Player.FindHealth();
-        health.TakeDamage(1, Element.Water);
-        var turnManager = FindObjectOfType<TurnManager>();
-        turnManager.EndTurn();
+        MakeAttack();
+        FindObjectOfType<TurnManager>().EndTurn();
+    }
+
+    public void MakeAttack()
+    {
+        if (Player.FindField().HasMonsters())
+        {
+            var monster = Player.FindField().GetRandomMonster();
+            Player.FindField().Remove(monster);
+            return;
+        }
+
+        Player.FindHealth().TakeDamage(1, Element.Water);
     }
 }

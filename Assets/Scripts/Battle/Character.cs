@@ -53,6 +53,8 @@ public class Character : TakeTurn
 
     public void SetStartOfTurnEffect(Action effect) { OnStartOfTurn += effect; }
 
+    public void RemoveStartOfTurnEffect(Action effect) { OnStartOfTurn -= effect; }
+
     public Energy GetEnergy() { return energy; }
 
     public int GetTime() { return stats.time; }

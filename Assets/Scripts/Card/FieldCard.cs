@@ -32,4 +32,10 @@ public class FieldCard : Card
         transform.eulerAngles = UNTAPPED_POSITION;
     }
 
+    public void Destroy()
+    {
+        var character = Player.FindCharacter();
+        character.RemoveStartOfTurnEffect(UnTap);
+        Destroy(gameObject);
+    }
 }

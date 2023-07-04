@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +5,12 @@ public class Field : MonoBehaviour
 {
     [SerializeField] private List<FieldCard> monsters = new List<FieldCard>();
 
-    public FieldCard GetCardAt(int position)
+    public bool HasMonsters() { return monsters.Count != 0; }
+
+    public FieldCard GetRandomMonster()
     {
-        return monsters[position];
+        var rng = Random.Range(0, monsters.Count);
+        return monsters[rng];
     }
 
     public void Add(FieldCard monster, MonsterStats stats)
@@ -17,9 +19,14 @@ public class Field : MonoBehaviour
         monsters.Add(newMonster);
         var fieldCard = newMonster.GetComponent<FieldCard>();
         fieldCard.SetUI(stats);
-        var character = Player.FindCharacter();
-        character.SetStartOfTurnEffect(fieldCard.UnTap);
+        Player.FindCharacter().SetStartOfTurnEffect(fieldCard.UnTap);
         DisplayHand();
+    }
+
+    public void Remove(FieldCard monster)
+    {
+        monsters.Remove(monster);
+        monster.Destroy();
     }
 
     void DisplayHand()
