@@ -5,9 +5,9 @@ using UnityEngine;
 public class CenterPosition
 {
     public int numberOfIndexes;
-    public int spacing;
+    public float spacing;
 
-    public CenterPosition(int numberOfIndexes, int spacing)
+    public CenterPosition(int numberOfIndexes, float spacing)
     {
         this.numberOfIndexes = numberOfIndexes;
         this.spacing = spacing;

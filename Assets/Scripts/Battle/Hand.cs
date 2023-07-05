@@ -5,7 +5,7 @@ public class Hand : MonoBehaviour
 {
     public Card cardPrefab;
     private List<Card> cards = new List<Card>();
-    private int CARD_SPACING = 10;
+    private float CARD_SPACING = 10.0f;
 
     public void Add(CardInfo cardToSpawn)
     {

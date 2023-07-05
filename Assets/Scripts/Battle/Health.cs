@@ -10,10 +10,20 @@ public class Health : MonoBehaviour
     public int maxHealth;
     private int currentHealth;
 
-    // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        SetHealth(maxHealth);
+    }
+
+    public Health SetMaxHealth(int health)
+    {
+        maxHealth = health;
+        return this;
+    }
+
+    public void SetHealth(int health)
+    {
+        currentHealth = health;
         healthDisplay.text = $"{currentHealth}";
     }
 
@@ -21,8 +31,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage, Element element)
     {
-        currentHealth = Mathf.Max(0, currentHealth - damage);
-        healthDisplay.text = $"{currentHealth}";
+        SetHealth(Mathf.Max(0, currentHealth - damage));
         if (element == Element.Weapon)
         {
             OnWeaponHit?.Invoke();

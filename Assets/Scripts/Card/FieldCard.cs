@@ -16,6 +16,7 @@ public class FieldCard : Card
 
     public void SetUI(MonsterStats stats)
     {
+        GetComponent<Health>().SetMaxHealth(stats.health).SetHealth(stats.health);
         healthUI.text = $"{stats.health}";
         attackUI.text = $"{stats.attack}";
     }
@@ -30,6 +31,17 @@ public class FieldCard : Card
     {
         isTapped = false;
         transform.eulerAngles = UNTAPPED_POSITION;
+    }
+
+    public bool IsDead() { return GetComponent<Health>().IsDead(); }
+
+    public void TakeDamage(int damage, Element element)
+    {
+        GetComponent<Health>().TakeDamage(damage, element);
+        if (IsDead())
+        {
+            Player.FindField().Remove(this);
+        }
     }
 
     public void Destroy()

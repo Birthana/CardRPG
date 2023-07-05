@@ -98,7 +98,7 @@ public class Enemy : TakeTurn
         if (Player.FindField().HasMonsters())
         {
             var monster = Player.FindField().GetRandomMonster();
-            Player.FindField().Remove(monster);
+            monster.TakeDamage(1, Element.Water);
             return;
         }
 
